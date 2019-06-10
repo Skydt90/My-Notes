@@ -12,6 +12,7 @@
 		AAF8C20322AE53F20062D3EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAF8C20122AE53F20062D3EB /* Main.storyboard */; };
 		AAF8C20522AE53F40062D3EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAF8C20422AE53F40062D3EB /* Assets.xcassets */; };
 		AAF8C20822AE53F40062D3EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAF8C20622AE53F40062D3EB /* LaunchScreen.storyboard */; };
+		AAF8C21722AE74830062D3EB /* AppDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAF8C21522AE74820062D3EB /* AppDatabase.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		AAF8C20422AE53F40062D3EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AAF8C20722AE53F40062D3EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AAF8C20922AE53F40062D3EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAF8C21622AE74830062D3EB /* AppDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AppDatabase.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,47 @@
 		AAF8C1FC22AE53F20062D3EB /* My Notes */ = {
 			isa = PBXGroup;
 			children = (
-				AAF8C1FD22AE53F20062D3EB /* AppDelegate.swift */,
-				AAF8C1FF22AE53F20062D3EB /* MyNotesViewController.swift */,
-				AAF8C20122AE53F20062D3EB /* Main.storyboard */,
-				AAF8C20422AE53F40062D3EB /* Assets.xcassets */,
-				AAF8C20622AE53F40062D3EB /* LaunchScreen.storyboard */,
 				AAF8C20922AE53F40062D3EB /* Info.plist */,
+				AAF8C1FD22AE53F20062D3EB /* AppDelegate.swift */,
+				AAF8C21422AE68280062D3EB /* Supporting Files */,
+				AAF8C21322AE67C80062D3EB /* Controller */,
+				AAF8C21222AE679E0062D3EB /* View */,
+				AAF8C20F22AE67780062D3EB /* Entities */,
 			);
 			path = "My Notes";
+			sourceTree = "<group>";
+		};
+		AAF8C20F22AE67780062D3EB /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				AAF8C21522AE74820062D3EB /* AppDatabase.xcdatamodeld */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		AAF8C21222AE679E0062D3EB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AAF8C20122AE53F20062D3EB /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AAF8C21322AE67C80062D3EB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AAF8C1FF22AE53F20062D3EB /* MyNotesViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		AAF8C21422AE68280062D3EB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AAF8C20622AE53F40062D3EB /* LaunchScreen.storyboard */,
+				AAF8C20422AE53F40062D3EB /* Assets.xcassets */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +172,7 @@
 			files = (
 				AAF8C20022AE53F20062D3EB /* MyNotesViewController.swift in Sources */,
 				AAF8C1FE22AE53F20062D3EB /* AppDelegate.swift in Sources */,
+				AAF8C21722AE74830062D3EB /* AppDatabase.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +372,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AAF8C21522AE74820062D3EB /* AppDatabase.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AAF8C21622AE74830062D3EB /* AppDatabase.xcdatamodel */,
+			);
+			currentVersion = AAF8C21622AE74830062D3EB /* AppDatabase.xcdatamodel */;
+			path = AppDatabase.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AAF8C1F222AE53F20062D3EB /* Project object */;
 }

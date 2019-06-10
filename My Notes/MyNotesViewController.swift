@@ -11,13 +11,14 @@ import UIKit
 class MyNotesViewController: UITableViewController
 {
 
-    let noteArray = ["note 1", "note 2", "note 3"]
+    var noteArray = ["note 1", "note 2", "note 3"]
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
     }
+    
     
     //MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -32,6 +33,7 @@ class MyNotesViewController: UITableViewController
         return cell
     }
     
+    
     //MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
@@ -41,7 +43,29 @@ class MyNotesViewController: UITableViewController
         tableView.deselectRow(at: indexPath, animated: true)
         
     }
-
+    
+    //MARK: - Button Actions
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem)
+    {
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add new Note", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add Note", style: .default)
+        { (action) in
+            // when "Add Note" is pressed
+            self.noteArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        
+        alert.addTextField
+        { (alertTextField) in
+            alertTextField.placeholder = "Add new Note"
+            textField = alertTextField // storing local tf in global variable to increase scope
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
 
 }
 

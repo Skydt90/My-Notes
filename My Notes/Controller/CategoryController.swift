@@ -9,12 +9,13 @@
 import UIKit
 import CoreData
 import ChameleonFramework
+import FBSDKCoreKit
 
 class CategoryController: SwipeCellController
 {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var categories = [Category]()
-
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -35,7 +36,7 @@ class CategoryController: SwipeCellController
     
         cell.textLabel?.text = category.name
         cell.backgroundColor = UIColor(hexString: category.color ?? "FF9810") // default value if empty
-        cell.textLabel?.textColor = ContrastColorOf(UIColor(hexString: category.color!)!, returnFlat: true)
+        cell.textLabel?.textColor = ContrastColorOf(UIColor(hexString: category.color ?? "FF9810")!, returnFlat: true)
         return cell
     }
     
@@ -73,9 +74,9 @@ class CategoryController: SwipeCellController
         { (action) in
             let category = Category(context: self.context)
             
-            if category.name == ""
+            if textField.text == ""
             {
-                self.dismiss(animated: true, completion: nil)
+                alert.dismiss(animated: true, completion: nil)
             }
             else
             {
@@ -89,6 +90,20 @@ class CategoryController: SwipeCellController
         
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func logoutButtonPressed(_ sender: UIBarButtonItem)
+    {
+        let alertController = UIAlertController(title: "Logout", message: "Do you want to logout?", preferredStyle: .alert)
+        let logoutAction = UIAlertAction(title: "Yes", style: .default)
+        { _ in
+            AccessToken.current = nil
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(UIAlertAction(title: "No", style: .default))
+        alertController.addAction(logoutAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     

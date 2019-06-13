@@ -65,7 +65,7 @@ class NoteController: SwipeCellController
     {
         // done equals the opposite of current value
         notes[indexPath.row].isChecked = !notes[indexPath.row].isChecked
-        //tableView.deselectRow(at: indexPath, animated: true)
+        
         tableView.reloadData()
         
         saveNotes()
@@ -89,9 +89,9 @@ class NoteController: SwipeCellController
         { (action) in
             let note = Note(context: self.context)
             
-            if note.title == ""
+            if textField.text == ""
             {
-                self.dismiss(animated: true, completion: nil)
+                alert.dismiss(animated: true, completion: nil)
             }
             else
             {

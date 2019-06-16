@@ -10,6 +10,10 @@
 		2CAD51A63F3DA3BAAA9EABA0 /* Pods_My_Notes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE48B2C0D5B90675241E9E63 /* Pods_My_Notes.framework */; };
 		AA45917622AFC81000702D13 /* SwipeCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA45917522AFC81000702D13 /* SwipeCellController.swift */; };
 		AAA5616E22AF877000967555 /* CategoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA5616D22AF877000967555 /* CategoryController.swift */; };
+		AABFAEF222B6351100D5D675 /* CategoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFAEF122B6351100D5D675 /* CategoryRepository.swift */; };
+		AABFAEF422B6449500D5D675 /* NoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFAEF322B6449500D5D675 /* NoteRepository.swift */; };
+		AABFAEF922B64E0600D5D675 /* CategoryRepoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFAEF822B64E0600D5D675 /* CategoryRepoProtocol.swift */; };
+		AABFAEFC22B6509900D5D675 /* NoteRepoProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFAEFB22B6509900D5D675 /* NoteRepoProtocol.swift */; };
 		AACB08E622B25CB20076FF4C /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB08E522B25CB20076FF4C /* WelcomeController.swift */; };
 		AACB08E822B25D3F0076FF4C /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB08E722B25D3F0076FF4C /* RegisterController.swift */; };
 		AACB08EA22B25D520076FF4C /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACB08E922B25D520076FF4C /* LoginController.swift */; };
@@ -27,6 +31,10 @@
 		A3D5450447C1FC677B82BADD /* Pods-My Notes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-My Notes.debug.xcconfig"; path = "Target Support Files/Pods-My Notes/Pods-My Notes.debug.xcconfig"; sourceTree = "<group>"; };
 		AA45917522AFC81000702D13 /* SwipeCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCellController.swift; sourceTree = "<group>"; };
 		AAA5616D22AF877000967555 /* CategoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryController.swift; sourceTree = "<group>"; };
+		AABFAEF122B6351100D5D675 /* CategoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepository.swift; sourceTree = "<group>"; };
+		AABFAEF322B6449500D5D675 /* NoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRepository.swift; sourceTree = "<group>"; };
+		AABFAEF822B64E0600D5D675 /* CategoryRepoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRepoProtocol.swift; sourceTree = "<group>"; };
+		AABFAEFB22B6509900D5D675 /* NoteRepoProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRepoProtocol.swift; sourceTree = "<group>"; };
 		AACB08E522B25CB20076FF4C /* WelcomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
 		AACB08E722B25D3F0076FF4C /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
 		AACB08E922B25D520076FF4C /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -71,6 +79,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		AABFAEF722B6451900D5D675 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				AABFAEF322B6449500D5D675 /* NoteRepository.swift */,
+				AABFAEF122B6351100D5D675 /* CategoryRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		AABFAEFA22B6501700D5D675 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				AABFAEF822B64E0600D5D675 /* CategoryRepoProtocol.swift */,
+				AABFAEFB22B6509900D5D675 /* NoteRepoProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		AAF8C1F122AE53F20062D3EB = {
 			isa = PBXGroup;
 			children = (
@@ -94,20 +120,22 @@
 			children = (
 				AAF8C20922AE53F40062D3EB /* Info.plist */,
 				AACB08EB22B272420076FF4C /* GoogleService-Info.plist */,
-				AAF8C21422AE68280062D3EB /* Supporting Files */,
+				AAF8C20F22AE67780062D3EB /* Database */,
 				AAF8C21322AE67C80062D3EB /* Controller */,
+				AABFAEFA22B6501700D5D675 /* Protocols */,
+				AABFAEF722B6451900D5D675 /* Repositories */,
 				AAF8C21222AE679E0062D3EB /* View */,
-				AAF8C20F22AE67780062D3EB /* Entities */,
+				AAF8C21422AE68280062D3EB /* Supporting Files */,
 			);
 			path = "My Notes";
 			sourceTree = "<group>";
 		};
-		AAF8C20F22AE67780062D3EB /* Entities */ = {
+		AAF8C20F22AE67780062D3EB /* Database */ = {
 			isa = PBXGroup;
 			children = (
 				AAF8C21522AE74820062D3EB /* AppDatabase.xcdatamodeld */,
 			);
-			path = Entities;
+			path = Database;
 			sourceTree = "<group>";
 		};
 		AAF8C21222AE679E0062D3EB /* View */ = {
@@ -291,8 +319,12 @@
 				AAF8C1FE22AE53F20062D3EB /* AppDelegate.swift in Sources */,
 				AACB08E822B25D3F0076FF4C /* RegisterController.swift in Sources */,
 				AAF8C21722AE74830062D3EB /* AppDatabase.xcdatamodeld in Sources */,
+				AABFAEFC22B6509900D5D675 /* NoteRepoProtocol.swift in Sources */,
+				AABFAEF422B6449500D5D675 /* NoteRepository.swift in Sources */,
 				AACB08EA22B25D520076FF4C /* LoginController.swift in Sources */,
+				AABFAEF222B6351100D5D675 /* CategoryRepository.swift in Sources */,
 				AA45917622AFC81000702D13 /* SwipeCellController.swift in Sources */,
+				AABFAEF922B64E0600D5D675 /* CategoryRepoProtocol.swift in Sources */,
 				AAA5616E22AF877000967555 /* CategoryController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

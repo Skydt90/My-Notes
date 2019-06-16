@@ -7,19 +7,18 @@
 //
 
 import UIKit
-import CoreData
 import ChameleonFramework
 import FBSDKCoreKit
 
 class CategoryController: SwipeCellController
 {
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let categoryRepository = CategoryRepository(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
     var categories = [Category]()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        loadCategories()
+        categories = categoryRepository.loadAll()
     }
 
     
@@ -47,6 +46,8 @@ class CategoryController: SwipeCellController
         performSegue(withIdentifier: "showNotes", sender: self)
     }
     
+    
+    //MARK: - Seague Prepare
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         let destination = segue.destination as! NoteController
@@ -62,6 +63,7 @@ class CategoryController: SwipeCellController
     {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add new Category", message: "", preferredStyle: .alert)
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         alert.addTextField
         { (alertTextField) in
@@ -72,7 +74,7 @@ class CategoryController: SwipeCellController
         // when "Add Category" is pressed
         let action = UIAlertAction(title: "Add Category", style: .default)
         { (action) in
-            let category = Category(context: self.context)
+            let category = Category(context: context)
             
             if textField.text == ""
             {
@@ -83,7 +85,7 @@ class CategoryController: SwipeCellController
                 category.name = textField.text!
                 category.color = UIColor.randomFlat.hexValue()
                 self.categories.append(category)
-                self.saveCategories()
+                self.categoryRepository.saveAll()
                 self.tableView.reloadData()
             }
         }
@@ -107,36 +109,9 @@ class CategoryController: SwipeCellController
     }
     
     
-    //MARK: - CRUD Operations
-    func saveCategories()
-    {
-        do
-        {
-            try context.save()
-        }
-        catch
-        {
-            print("Error saving context: \(error)")
-        }
-    }
-    
-    func loadCategories(with request: NSFetchRequest<Category> = Category.fetchRequest())
-    {
-        do
-        {
-            try categories = context.fetch(request)
-        }
-        catch
-        {
-            print("Error loading categories: \(error)")
-        }
-    }
-    
+    //MARK: - Delete Override
     override func deleteModelFromSwipe(at indexPath: IndexPath)
     {
-        let category = categories[indexPath.row]
-        context.delete(category)
-        categories.remove(at: indexPath.row)
-        saveCategories()
+        categories = categoryRepository.deleteFromSwipe(at: indexPath, fromArray: &categories)
     }
 }

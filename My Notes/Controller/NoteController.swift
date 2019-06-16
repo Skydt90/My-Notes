@@ -13,15 +13,14 @@ import ChameleonFramework
 class NoteController: SwipeCellController
 {
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    // current app as object, casting to own class AppDelegate, then grapping the persistentContainer
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let noteRepository = NoteRepository(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
     var notes = [Note]()
     var category : Category?
     {
         didSet
         {
-            loadNotes()
+            notes = noteRepository.loadAll(category: category!)
+            self.tableView.reloadData()
         }
     }
     
@@ -29,7 +28,8 @@ class NoteController: SwipeCellController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        loadNotes()
+        notes = noteRepository.loadAll(category: category!)
+        self.tableView.reloadData()
     }
     
     
@@ -68,13 +68,15 @@ class NoteController: SwipeCellController
         
         tableView.reloadData()
         
-        saveNotes()
+        noteRepository.saveAll()
     }
     
     
     //MARK: - Button Action
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem)
     {
+        // current app as object, casting to own class AppDelegate, then grapping the persistentContainer
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         var textField = UITextField()
         let alert = UIAlertController(title: "Add new Note", message: "", preferredStyle: .alert)
         
@@ -87,7 +89,7 @@ class NoteController: SwipeCellController
         // when "Add Note" is pressed
         let action = UIAlertAction(title: "Add Note", style: .default)
         { (action) in
-            let note = Note(context: self.context)
+            let note = Note(context: context)
             
             if textField.text == ""
             {
@@ -99,7 +101,7 @@ class NoteController: SwipeCellController
                 note.isChecked = false
                 note.parentCategory = self.category
                 self.notes.append(note)
-                self.saveNotes()
+                self.noteRepository.saveAll()
                 self.tableView.reloadData()
             }
         }
@@ -108,53 +110,12 @@ class NoteController: SwipeCellController
     }
     
     
-    //MARK: - CRUD Operations
-    func saveNotes()
-    {
-        do
-        {
-            try context.save()
-        }
-        catch
-        {
-            print("Error saving context: \(error)")
-        }
-    }
-    
-    // external & internal perameter, = default value
-    func loadNotes(with request: NSFetchRequest<Note> = Note.fetchRequest(), and predicate: NSPredicate? = nil)
-    {
-        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", category!.name!)
-        
-        // optional binding to check nil value in arg
-        if let compoundPredicate = predicate
-        {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, compoundPredicate])
-        }
-        else
-        {
-            request.predicate = categoryPredicate
-        }
-        
-        do
-        {
-            notes = try context.fetch(request)
-        }
-        catch
-        {
-            print("Error loading context: \(error)")
-        }
-        self.tableView.reloadData()
-    }
-    
-    
+    //MARK: Delete Override
     override func deleteModelFromSwipe(at indexPath: IndexPath)
     {
-        let note = notes[indexPath.row]
-        context.delete(note)
-        notes.remove(at: indexPath.row)
-        saveNotes()
+        notes = noteRepository.deleteFromSwipe(at: indexPath, fromArray: &notes)
     }
+    
     
     //MARK: - Styling Navigation Bar
     func styleNavigation(withHexCode hexcode: String)
@@ -194,7 +155,8 @@ extension NoteController: UISearchBarDelegate
             let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!) // non case & diacretic
             
             request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-            loadNotes(with: request, and: predicate)
+            notes = noteRepository.loadAll(with: request, and: predicate, category: category!)
+            self.tableView.reloadData()
         }
         else
         {
@@ -212,7 +174,8 @@ extension NoteController: UISearchBarDelegate
             DispatchQueue.main.async
             {
                 searchBar.resignFirstResponder()
-                self.loadNotes()
+                self.notes = self.noteRepository.loadAll(category: self.category!)
+                self.tableView.reloadData()
             }
         }
     }
